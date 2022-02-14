@@ -6,10 +6,11 @@ library(nnet)
 library(tree)
 library(e1071)
 
-#plot
+#plot package
 library(rpart.plot)
 library(rattle)
 
+#import data from csv
 white_wine <- read.csv(file = 'winequality-white.csv' ,sep = ';')
 set.seed(5)
 gp <- runif(nrow(white_wine))
@@ -34,15 +35,18 @@ white_wine_test = white_wine[-train,]
 rating_train = white_wine$rating[train]
 rating_test  = white_wine$rating[-train]
 
+############################# Sampling #############################
+
 # set the 10-fold, traincontrol
 set.seed(100)
-
 myControl <- trainControl(
     method = 'repeatedcv',
     number = 5,
     repeats = 5,
     savePredictions = TRUE)
-    
+  
+############################# Training Model #############################
+
 #fit model: logistic regression
 white_wine_train$rating <- relevel(white_wine_train$rating, ref = '0')
 lr_fit <- train(rating ~ .,
@@ -89,6 +93,8 @@ rf_fit <- train(rating ~ .,
              metric    = "Accuracy",
              data       = white_wine_train)
 
+############################# Graph #############################
+
 #interpretation: logistic regression
 summary(lr_fit)
 
@@ -103,6 +109,8 @@ fancyRpartPlot(dt_fit2$finalModel)
 
 #interpretation: random forest
 plot(rf_fit)
+
+############################# Testing Model #############################
 
 #test: logistic regression
 lr_pred <- predict(lr_fit, newdata = white_wine_test)
