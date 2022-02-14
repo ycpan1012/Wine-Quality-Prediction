@@ -1,4 +1,4 @@
-#model package
+#model packages
 library(class)
 library(glmnet)
 library(caret)
