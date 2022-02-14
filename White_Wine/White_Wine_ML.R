@@ -56,7 +56,7 @@ lr_fit <- train(rating ~ .,
              metric     = "Accuracy",
              data       = white_wine_train)
              
-#check the p-value
+#variable selection: check the p-value
 z <- (summary(lr_fit)$coefficients) / (summary(lr_fit)$standard.errors)
 p <- (1 - pnorm(abs(z), 0, 1))*2
 p
