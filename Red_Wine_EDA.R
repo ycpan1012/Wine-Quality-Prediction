@@ -57,6 +57,6 @@ title('(10)')
 alcohol_box            <- boxplot(red_wine$alcohol ~ red_wine$quality, col="#69b3a2", xlab = 'quality', ylab = 'alcohol')
 title('(11)')
 
-#1(3) corrplot
+#(4) corrplot
 M = cor(red_wine)
 corr <- corrplot(M, method='color', addCoef.col = 'black',number.cex=0.8, tl.cex=0.9, tl.col='black', tl.srt = 50)
